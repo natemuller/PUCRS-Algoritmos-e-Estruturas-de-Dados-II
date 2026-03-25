@@ -1,5 +1,5 @@
 public class TabelaHash {
-    private Node[] table;
+    private TabelaHash.Node[] table;
     private int capacity;
 
     // Classe interna para o nó da lista encadeada
@@ -24,17 +24,51 @@ public class TabelaHash {
     public void put(int key) {
         int index = hash(key);
         // TODO: Implementar inserção no início da lista (ou verificar se já existe)
+        Node current = table[index];
+        
+        while (current != null) {
+            if(current.key == key){
+                return;
+            }
+            current = current.next;
+        }
+        Node newNode = new Node(key);
+        newNode.next = table [index];
+        table[index] = newNode;
     }
 
     public boolean contains(int key) {
         int index = hash(key);
         // TODO: Implementar busca na lista encadeada do índice
+        Node current = table[index];
+
+        while(current != null){
+            if(current.key == key){
+                return true;
+            }
+            current = current.next;
+        }
         return false;
     }
 
     public void remove(int key) {
         int index = hash(key);
         // TODO: Implementar remoção na lista encadeada
+        Node current = table [index];
+        Node prev = null;
+
+        while(current != null){
+            if(current.key == key){
+                if(prev == null){
+                    table[index] = current.next;
+                } else{
+                    prev.next = current.next;
+                }
+                return;
+            }
+            prev = current;
+            current = current.next;
+        }
     }
 
     public void printTable() {
