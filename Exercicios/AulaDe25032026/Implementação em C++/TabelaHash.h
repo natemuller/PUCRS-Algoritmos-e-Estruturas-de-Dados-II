@@ -23,6 +23,7 @@ public:
     bool contains(int key);
     void remove(int key);
     void printTable();
+    void heHash();
 };
 
 #endif

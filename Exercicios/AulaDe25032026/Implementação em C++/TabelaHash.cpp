@@ -94,3 +94,24 @@ void TabelaHash::printTable() {
         cout << "nullptr" << endl;
     }
 }
+
+void TabelaHash::heHash() {
+    int oldCapacity = capacity;
+    int newCapacity = capacity * 2 + 1;
+    Node** newTabelaHash = new Node*[newCapacity]();
+
+    for (int i = 0; i < oldCapacity; ++i)
+    {
+        Node *n = TabelaHash[i];
+        while (n != nullptr) {
+            Node *temp = n;
+            n = n->next;
+
+            Node*& bucket = newTabelaHash[default_hash_function(temp->key) % capacity];
+            temp->next = bucket;
+            bucket = temp;
+        }
+    }
+    delete [] TabelaHash;
+    TabelaHash = newTabelaHash;
+}

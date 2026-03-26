@@ -14,6 +14,7 @@ public class App {
             int valor = random.nextInt(100);
             System.out.print(valor + " ");
             hash.put(valor);
+            hash.reHash();
         }
 
         System.out.println("\n\n--- Estado Atual da Tabela Hash ---");

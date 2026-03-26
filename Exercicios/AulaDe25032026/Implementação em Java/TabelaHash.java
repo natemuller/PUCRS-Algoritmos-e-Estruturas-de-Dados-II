@@ -21,6 +21,10 @@ public class TabelaHash {
         return Math.abs(key) % capacity;
     }
 
+    private int defaultHashFunction(int key) {
+        return Math.abs(key);
+    }
+
     public void put(int key) {
         int index = hash(key);
         // TODO: Implementar inserção no início da lista (ou verificar se já existe)
@@ -81,5 +85,25 @@ public class TabelaHash {
             }
             System.out.println("null");
         }
+    }
+
+    public void reHash() {
+        int oldCapacity = capacity;
+        int newCapacity = capacity * 2 + 1;
+        Node[] newTable = new Node[newCapacity];
+
+        for (int i = 0; i < oldCapacity; i++) {
+            Node n = table[i];
+
+            while (n != null) {
+                Node temp = n;
+                n = n.next;
+
+                int newIndex = defaultHashFunction(temp.key) % capacity;
+                temp.next = newTable[newIndex];
+                newTable[newIndex] = temp;
+            }
+        }
+        table = newTable;
     }
 }
