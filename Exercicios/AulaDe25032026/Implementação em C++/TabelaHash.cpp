@@ -6,6 +6,7 @@ using namespace std;
 
 TabelaHash::TabelaHash(int capacity) {
     this->capacity = capacity;
+    this->size = 0;
     table = new Node*[capacity];
 
     for (int i = 0; i < capacity; i++) {
@@ -43,6 +44,11 @@ void TabelaHash::put(int key) {
     Node* newNode = new Node(key);
     newNode->next = table[index];
     table[index] = newNode;
+
+    size++;
+    if ((double) size / capacity > 0.75) {
+        reHash();
+    }
 }
 
 bool TabelaHash::contains(int key) {
@@ -74,6 +80,7 @@ void TabelaHash::remove(int key) {
                 prev->next = current->next;
             }
             delete current;
+            size--;
             return;
         }
         prev = current;
@@ -95,23 +102,25 @@ void TabelaHash::printTable() {
     }
 }
 
-void TabelaHash::heHash() {
+void TabelaHash::reHash() {
     int oldCapacity = capacity;
+    Node** oldTabelaHash = table;
+
     int newCapacity = capacity * 2 + 1;
     Node** newTabelaHash = new Node*[newCapacity]();
 
-    for (int i = 0; i < oldCapacity; ++i)
-    {
-        Node *n = TabelaHash[i];
+    for (int i = 0; i < oldCapacity; ++i) {
+        Node *n = oldTabelaHash[i];
         while (n != nullptr) {
             Node *temp = n;
             n = n->next;
 
-            Node*& bucket = newTabelaHash[default_hash_function(temp->key) % capacity];
-            temp->next = bucket;
-            bucket = temp;
+            int index = std::abs(temp->key) % newCapacity;
+            temp->next = newTabelaHash[index];
+            newTabelaHash[index] = temp;
         }
     }
-    delete [] TabelaHash;
-    TabelaHash = newTabelaHash;
+    table = newTabelaHash;
+    capacity = newCapacity;
+    delete [] oldTabelaHash;
 }

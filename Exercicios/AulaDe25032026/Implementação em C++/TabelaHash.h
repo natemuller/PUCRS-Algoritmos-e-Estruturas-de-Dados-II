@@ -12,6 +12,7 @@ private:
 
     Node** table;
     int capacity;
+    int size;
 
     int hash(int key);
 
@@ -23,7 +24,7 @@ public:
     bool contains(int key);
     void remove(int key);
     void printTable();
-    void heHash();
+    void reHash();
 };
 
 #endif
