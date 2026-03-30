@@ -1,15 +1,25 @@
 #include <iostream>
 #include <fstream>
-#include "Inflator.h"
-#include "Files.h"
+#include "inflator.h"
+#include "files.h"
 
 using namespace std;
 
 int main() {
+    Inflator inflator;
+    Files files;
 
-    // 1. pedir ou ler o nome do arquivo
-    // 2. chamar a função que lê e interpreta os dados
-    // 3. chamar a função principal que resolve o problema
-    // 4. mostrar o resultado final
+    files.setNomeArquivo("entrada.txt");
+
+    if (!files.lerArquivo(inflator)) {
+        cout << "Erro" << endl;
+        return 1;
+    }
+
+    inflator.descobrirLetraInicial();
+
+    cout << inflator.getLetraInicial() << endl;
+    cout << inflator.calcularTamanhoFinal() << endl;
+
     return 0;
 }
