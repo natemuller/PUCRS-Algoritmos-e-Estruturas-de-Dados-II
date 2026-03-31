@@ -5,17 +5,24 @@
 using namespace std;
 
 Files::Files() {
-
+    nomeArquivo = "";
 }
 
-Files::~Files() {
-
-}
+Files::~Files() {}
 
 void Files::setNomeArquivo(const string & nome) {
-
+    nomeArquivo = nome;
 }
 
-bool Files::lerArquivo(Inflator & inflator) {
-    return false;
+ifstream Files::abrirArquivo() {
+    if (nomeArquivo.empty()) {
+        cout << "nome do arquivo nao definido\n";
+        return ifstream();
+    }
+    ifstream arquivo(nomeArquivo);
+
+    if (!arquivo.is_open()) {
+        cout << "erro ao abrir" << nomeArquivo << endl;
+    }
+    return arquivo;
 }

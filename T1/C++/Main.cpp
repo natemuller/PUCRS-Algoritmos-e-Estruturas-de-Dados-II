@@ -6,20 +6,20 @@
 using namespace std;
 
 int main() {
-    Inflator inflator;
     Files files;
+    Inflator inflator;
 
     files.setNomeArquivo("entrada.txt");
+    ifstream arquivo = files.abrirArquivo();
 
-    if (!files.lerArquivo(inflator)) {
-        cout << "Erro" << endl;
+    if (!arquivo.is_open()) {
         return 1;
     }
 
-    inflator.descobrirLetraInicial();
-
-    cout << inflator.getLetraInicial() << endl;
-    cout << inflator.calcularTamanhoFinal() << endl;
-
-    return 0;
+    if (!inflator.carregarRegras(arquivo)) {
+        return 1;
+    }
+    string resposta = inflator.inflar();
+    long long tamanhoStringGerada = resposta.size();
+    cout << tamanhoStringGerada << "\n" << endl;
 }

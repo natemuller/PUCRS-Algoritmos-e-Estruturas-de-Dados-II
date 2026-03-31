@@ -15,7 +15,7 @@ class Files {
 
         void setNomeArquivo(const string& nome);
 
-        bool lerArquivo(Inflator& inflator);
+        std::ifstream abrirArquivo();
 };
 
 #endif
