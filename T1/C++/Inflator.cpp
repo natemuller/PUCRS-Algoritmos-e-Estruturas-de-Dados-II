@@ -80,7 +80,6 @@ void Inflator::adicionarRegra(char letra, const string &sequencia) {
     int indice = indiceDaLetra(letra);
     regras[indice].letra = letra;
     regras[indice].sequencia = sequencia;
-    quantidadeRegras++;
 }
 
 string Inflator::buscarSequencia(char letra) const {
