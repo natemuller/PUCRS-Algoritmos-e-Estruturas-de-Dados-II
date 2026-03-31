@@ -10,7 +10,16 @@ using namespace std;
 
 class Inflator {
     private:
+        struct Node {
+            int key;
+            Node* next;
+            Node(int key) : key(key), next(nullptr) {}
+        };
 
+        Node** table;
+        int capacity;
+        int size;
+        
     public:
         Inflator();
         ~Inflator();
