@@ -1,3 +1,5 @@
+package Exercicios.AulaDe25032026.ImplementaçãoJava;
+
 import java.util.Random;
 
 public class App {

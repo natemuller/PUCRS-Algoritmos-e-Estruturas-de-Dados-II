@@ -1,3 +1,5 @@
+package Exercicios.AulaDe25032026.ImplementaçãoJava;
+
 public class TabelaHash {
     private TabelaHash.Node[] table;
     private int capacity;
