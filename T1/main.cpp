@@ -30,11 +30,3 @@ int main() {
     arquivo.close();
     return 0;
 }
-
-
-/*
-Explicação para auxiliar no artigo final:
-    Inicialmente, a main apenas cria uma instância de Files e uma de Inflator.
-    Em seguida, definte o nome do arquivo e abre-o.
-    Carrega o arquivo e exibe o tamanho final da string já inflada.
-*/
