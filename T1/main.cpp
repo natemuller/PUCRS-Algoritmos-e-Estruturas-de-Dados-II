@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <chrono>
 #include "inflator.h"
 #include "files.h"
 
@@ -9,7 +10,7 @@ int main() {
     Files files;
     Inflator inflator;
 
-    files.setNomeArquivo("casos de teste/caso-12");
+    files.setNomeArquivo("casos de teste/caso-10");
     ifstream arquivo = files.abrirArquivo();
     if (!arquivo.is_open()) {
         return 1;
@@ -17,7 +18,14 @@ int main() {
 
     inflator.carregarArquivo(arquivo);
 
+    auto inicio = std::chrono::high_resolution_clock::now();
+
     cout << inflator.calculaTamFinal() << endl;
+
+    auto fim = std::chrono::high_resolution_clock::now();
+
+    auto duracao = std::chrono::duration_cast<std::chrono::milliseconds>(fim - inicio);
+    cout << "tempo de execucao: " << duracao.count() << " ms" << endl;
 
     arquivo.close();
     return 0;
