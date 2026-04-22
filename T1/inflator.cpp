@@ -107,8 +107,8 @@ unsigned long long Inflator::calculaTamFinal() {
     }
     chamadasInflar = 0;
     unsigned long long resultado = inflar(inicial);
-    cout << inicial << endl;
-    cout << chamadasInflar << endl;
+    cout << "letra inicial: "<< inicial << endl;
+    cout << "chamadas de 'inflar': " << chamadasInflar << endl;
 
     return resultado;
 }
