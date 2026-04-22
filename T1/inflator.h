@@ -18,8 +18,6 @@ class Inflator {
 
         Node* table[M];
         char inicial;
-        unsigned long long tamanho[256];
-        bool resolvido[256];
 
         int hash(char key);
 

@@ -10,11 +10,6 @@ Inflator::Inflator() {
         table[i] = nullptr;
     }
     inicial = '\0';
-
-    for (int i = 0; i < 256; i++) {
-        tamanho[i] = 0;
-        resolvido[i] = false;
-    }
 }
 
 Inflator::~Inflator() {
@@ -88,7 +83,7 @@ void Inflator::carregarArquivo(ifstream& arquivo) {
 
         put(chave, valor);
     }
-
+    
     for (int i = 0; i < 256; i++) {
         if (ehChave[i] && !apareceNoValor[i]) {
             inicial = (char)i;
@@ -98,50 +93,18 @@ void Inflator::carregarArquivo(ifstream& arquivo) {
 }
 
 unsigned long long Inflator::inflar(char c) {
-    bool mudou = true;
+    string valor = get(c);
 
-    while (mudou && !resolvido[(unsigned char)c]) {
-        mudou = false;
-
-        for (int i = 0; i < M; i++) {
-            Node* x = table[i];
-
-            while (x != nullptr) {
-                unsigned char chave = (unsigned char)x->key;
-
-                if (!resolvido[chave]) {
-                    if (x->val == "") {
-                        tamanho[chave] = 1;
-                        resolvido[chave] = true;
-                        mudou = true;
-                    } else {
-                        bool podeCalcular = true;
-                        unsigned long long soma = 0;
-
-                        for (char ch : x->val) {
-                            unsigned char idx = (unsigned char)ch;
-
-                            if (!resolvido[idx]) {
-                                podeCalcular = false;
-                                break;
-                            }
-
-                            soma += tamanho[idx];
-                        }
-
-                        if (podeCalcular) {
-                            tamanho[chave] = soma;
-                            resolvido[chave] = true;
-                            mudou = true;
-                        }
-                    }
-                }
-
-                x = x->next;
-            }
-        }
+    if (valor == "") {
+        return 1;
     }
-    return tamanho[(unsigned char)c];
+
+    unsigned long long soma = 0;
+
+    for (char ch : valor) {
+        soma += inflar(ch);
+    }
+    return soma;
 }
 
 unsigned long long Inflator::calculaTamFinal() {
