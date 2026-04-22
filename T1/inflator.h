@@ -19,6 +19,8 @@ class Inflator {
         Node* table[M];
         char inicial;
 
+        unsigned long long chamadasInflar; //remover depois
+
         int hash(char key);
 
         void put(char key, string val);

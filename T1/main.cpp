@@ -9,7 +9,7 @@ int main() {
     Files files;
     Inflator inflator;
 
-    files.setNomeArquivo("casos de teste/caso-13");
+    files.setNomeArquivo("casos de teste/caso-12");
     ifstream arquivo = files.abrirArquivo();
     if (!arquivo.is_open()) {
         return 1;

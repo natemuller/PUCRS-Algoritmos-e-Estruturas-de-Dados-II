@@ -10,6 +10,7 @@ Inflator::Inflator() {
         table[i] = nullptr;
     }
     inicial = '\0';
+    chamadasInflar = 0;
 }
 
 Inflator::~Inflator() {
@@ -60,9 +61,7 @@ string Inflator::get(char key) {
 
 void Inflator::carregarArquivo(ifstream& arquivo) {
     string linha;
-
-    bool ehChave[256] = {false};
-    bool apareceNoValor[256] = {false};
+    bool primeiraLinha = true;
 
     while (getline(arquivo, linha)) {
         if (linha.empty()) {
@@ -70,29 +69,23 @@ void Inflator::carregarArquivo(ifstream& arquivo) {
         }
 
         char chave = linha[0];
-        ehChave[(unsigned char)chave] = true;
+
+        if (primeiraLinha) {
+            inicial = chave;
+            primeiraLinha = false;
+        }
 
         string valor = "";
         if (linha.size() > 2) {
             valor = linha.substr(2);
         }
 
-        for (char c : valor) {
-            apareceNoValor[(unsigned char)c] = true;
-        }
-
         put(chave, valor);
-    }
-    
-    for (int i = 0; i < 256; i++) {
-        if (ehChave[i] && !apareceNoValor[i]) {
-            inicial = (char)i;
-            break;
-        }
     }
 }
 
 unsigned long long Inflator::inflar(char c) {
+    chamadasInflar++;
     string valor = get(c);
 
     if (valor == "") {
@@ -108,9 +101,14 @@ unsigned long long Inflator::inflar(char c) {
 }
 
 unsigned long long Inflator::calculaTamFinal() {
-        if (inicial == '\0') {
+    if (inicial == '\0') {
         cout << "letra inicial nao encontrada\n";
         return 0;
     }
-     return inflar(inicial);
+    chamadasInflar = 0;
+    unsigned long long resultado = inflar(inicial);
+    cout << inicial << endl;
+    cout << chamadasInflar << endl;
+
+    return resultado;
 }
