@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/nate/Desktop/PTP/PUCRS-Algoritmos-e-Estruturas-de-Dados-II/T2",
+      "program": "/Users/nate/Desktop/PTP/PUCRS-Algoritmos-e-Estruturas-de-Dados-II/T2/build/Debug/outDebug"
+    }
+  ]
+}
